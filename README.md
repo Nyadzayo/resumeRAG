@@ -10,7 +10,7 @@
 
 *Eliminate the hassle of manually filling out job application forms with AI-powered resume data extraction*
 
-[🚀 Demo](#-quick-start) • [📖 Documentation](#-api-documentation) • [🔧 Configuration](#-configuration) • [🤝 Contributing](#-contributing)
+[🚀 Demo](#-quick-start) • [🎥 Video Demo](https://youtu.be/RbtpZB4ebsI) • [📖 Documentation](#-api-documentation) • [🔧 Configuration](#-configuration) • [🤝 Contributing](#-contributing)
 
 </div>
 
@@ -32,6 +32,14 @@ ResumeRAG is an intelligent form auto-fill system designed to streamline job app
 - **🔒 Session Management**: Multi-user support with isolated data sessions
 
 ## 🎥 Demo
+
+### 📹 Video Demonstration
+
+[![ResumeRAG Form Auto-Fill Demo](https://img.youtube.com/vi/RbtpZB4ebsI/maxresdefault.jpg)](https://youtu.be/RbtpZB4ebsI)
+
+**[🎬 Watch the Full Demo on YouTube](https://youtu.be/RbtpZB4ebsI)**
+
+*See ResumeRAG in action - automatically extracting resume data and filling form fields with 85-89% accuracy*
 
 ### Form Auto-Fill in Action
 
