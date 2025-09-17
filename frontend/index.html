@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeRAG - Resume Information Extraction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 ResumeRAG</h1>
+            <p class="subtitle">AI-Powered Form Auto-Fill System</p>
+            <p class="description">Upload your resume and test form field extraction for Chrome extension integration</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Left Panel - Upload -->
+            <div class="panel upload-panel">
+                <h2>📄 Upload Resume</h2>
+                
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-content">
+                        <div class="upload-icon">📁</div>
+                        <p>Drag & drop your resume here</p>
+                        <p class="upload-subtitle">or click to browse</p>
+                        <input type="file" id="fileInput" accept=".pdf,.docx,.txt" hidden>
+                    </div>
+                    <div class="upload-progress" id="uploadProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="progressText">Uploading...</p>
+                    </div>
+                </div>
+
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <h3>File Information</h3>
+                    <div class="info-item">
+                        <strong>Name:</strong> <span id="fileName"></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Size:</strong> <span id="fileSize"></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Type:</strong> <span id="fileType"></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Session ID:</strong> <span id="sessionId"></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Chunks Created:</strong> <span id="chunksCreated"></span>
+                    </div>
+                    <div class="success-indicator">
+                        ✅ Upload successful! Ready for queries.
+                    </div>
+                </div>
+
+                <div class="error-message" id="uploadError" style="display: none;"></div>
+            </div>
+
+            <!-- Right Panel - Form Demo -->
+            <div class="panel query-panel">
+                <h2>📋 Form Field Testing</h2>
+                
+                <div class="form-demo" id="formDemo">
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>First Name</label>
+                                <input type="text" id="first_name" data-field="First Name" readonly>
+                                <button class="extract-btn" data-field="First Name">🔍</button>
+                            </div>
+                            <div class="form-field">
+                                <label>Last Name</label>
+                                <input type="text" id="last_name" data-field="Last Name" readonly>
+                                <button class="extract-btn" data-field="Last Name">🔍</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field full-width">
+                                <label>Email Address</label>
+                                <input type="email" id="email" data-field="Email" readonly>
+                                <button class="extract-btn" data-field="Email">🔍</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Phone Number</label>
+                                <input type="tel" id="phone" data-field="Phone" readonly>
+                                <button class="extract-btn" data-field="Phone">🔍</button>
+                            </div>
+                            <div class="form-field">
+                                <label>City</label>
+                                <input type="text" id="city" data-field="City" readonly>
+                                <button class="extract-btn" data-field="City">🔍</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Professional Information</h3>
+                        <div class="form-row">
+                            <div class="form-field full-width">
+                                <label>Current Job Title</label>
+                                <input type="text" id="current_job_title" data-field="Current Job Title" readonly>
+                                <button class="extract-btn" data-field="Current Job Title">🔍</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field full-width">
+                                <label>Current Company</label>
+                                <input type="text" id="current_company" data-field="Current Company" readonly>
+                                <button class="extract-btn" data-field="Current Company">🔍</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Years of Experience</label>
+                                <input type="text" id="years_of_experience" data-field="Years of Experience" readonly>
+                                <button class="extract-btn" data-field="Years of Experience">🔍</button>
+                            </div>
+                            <div class="form-field">
+                                <label>University</label>
+                                <input type="text" id="university" data-field="University" readonly>
+                                <button class="extract-btn" data-field="University">🔍</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Skills & Links</h3>
+                        <div class="form-row">
+                            <div class="form-field full-width">
+                                <label>Technical Skills</label>
+                                <textarea id="skills" data-field="Skills" rows="2" readonly></textarea>
+                                <button class="extract-btn" data-field="Skills">🔍</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>LinkedIn Profile</label>
+                                <input type="url" id="linkedin" data-field="LinkedIn" readonly>
+                                <button class="extract-btn" data-field="LinkedIn">🔍</button>
+                            </div>
+                            <div class="form-field">
+                                <label>GitHub Profile</label>
+                                <input type="url" id="github" data-field="GitHub" readonly>
+                                <button class="extract-btn" data-field="GitHub">🔍</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="fillAllBtn" class="fill-all-btn" disabled>
+                            <span id="fillAllText">🎢 Auto-Fill All Fields</span>
+                            <div class="loading-spinner" id="fillAllSpinner" style="display: none;"></div>
+                        </button>
+                        <button id="clearAllBtn" class="clear-btn">🧽 Clear All</button>
+                    </div>
+                </div>
+
+                <div class="extraction-log" id="extractionLog" style="display: none;">
+                    <h3>Extraction Log</h3>
+                    <div class="log-content" id="logContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example Form Fields Section -->
+        <div class="examples-section">
+            <h2>📄 Common Form Fields</h2>
+            <p class="examples-description">These are typical form fields found in job applications, university admissions, and professional profiles. Click any field to extract its value from your uploaded resume.</p>
+            
+            <div class="examples-grid">
+                <div class="example-category">
+                    <h3>💼 Basic Information</h3>
+                    <button class="example-btn" data-field="Full Name">Full Name</button>
+                    <button class="example-btn" data-field="Email Address">Email Address</button>
+                    <button class="example-btn" data-field="Phone Number">Phone Number</button>
+                    <button class="example-btn" data-field="Address">Home Address</button>
+                </div>
+                
+                <div class="example-category">
+                    <h3>🎓 Education & Experience</h3>
+                    <button class="example-btn" data-field="University">University/College</button>
+                    <button class="example-btn" data-field="Degree">Degree/Major</button>
+                    <button class="example-btn" data-field="Current Job Title">Current Position</button>
+                    <button class="example-btn" data-field="Current Company">Current Employer</button>
+                </div>
+                
+                <div class="example-category">
+                    <h3>🔗 Professional Links</h3>
+                    <button class="example-btn" data-field="LinkedIn">LinkedIn Profile</button>
+                    <button class="example-btn" data-field="GitHub">GitHub Profile</button>
+                    <button class="example-btn" data-field="Portfolio">Portfolio Website</button>
+                    <button class="example-btn" data-field="Skills">Technical Skills</button>
+                </div>
+            </div>
+            
+            <div class="chrome-extension-info">
+                <h3>🌍 Chrome Extension Integration</h3>
+                <p>This system is designed to power a Chrome extension that will:</p>
+                <ul>
+                    <li>✅ Automatically detect form fields on web pages</li>
+                    <li>✅ Extract relevant information from your uploaded resume</li>
+                    <li>✅ Fill forms instantly with high accuracy</li>
+                    <li>✅ Work on job boards, university applications, and professional profiles</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="status-section">
+            <div class="status-indicator" id="systemStatus">
+                <span class="status-dot"></span>
+                <span id="statusText">Checking system status...</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ResumeRAG - AI-Powered Resume Processing</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
